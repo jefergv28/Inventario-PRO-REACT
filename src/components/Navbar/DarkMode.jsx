@@ -1,32 +1,41 @@
-import React from "react";
-import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
+import React, { useEffect, useState } from "react";
+import { HiMoon, HiSun } from "react-icons/hi"; // Importar los íconos
 
 const DarkMode = () => {
-  const [theme, setTheme] = React.useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const element = document.documentElement; // access to html element
-
-  // set theme to localStorage and html element
-  React.useEffect(() => {
-    localStorage.setItem("theme", theme);
-    if (theme === "dark") {
-      element.classList.add("dark");
+  // Al iniciar, verificamos si ya está guardada la preferencia del modo oscuro en el localStorage
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
     } else {
-      element.classList.remove("light");
-      element.classList.remove("dark");
+      setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
     }
-  });
+  }, []);
+
+  // Cambia el estado de modo oscuro y guarda en el localStorage
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    }
+  };
 
   return (
-    <>
-      {theme === "dark" ? (
-        <BiSolidSun onClick={() => setTheme("light")} className="text-2xl" />
-      ) : (
-        <BiSolidMoon onClick={() => setTheme("dark")} className="text-2xl" />
-      )}
-    </>
+    <button
+      onClick={toggleDarkMode}
+      className="text-lg font-medium text-gray-800 dark:text-gray-200"
+    >
+      {isDarkMode ? <HiMoon size={24} /> : <HiSun size={24} />}{" "}
+      {/* Íconos para modo claro/oscuro */}
+    </button>
   );
 };
 

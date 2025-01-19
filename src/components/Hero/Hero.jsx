@@ -7,21 +7,15 @@ const Hero = () => {
       <div className="container min-h-[620px] flex mt-10 sm:mt-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 place-items-center">
           {/* Image section */}
-          <div data-aos="zoom-in" className="order-1 sm:order-2 relative">
+          <div
+            data-aos="zoom-in"
+            className="order-1 sm:order-2 relative bg-gradient-to-t from-primary-100 via-zinc-100 to-white dark:from-primary-100 dark:via-gray-950 dark:to-gray-950 rounded-2xl p-0"
+          >
             <img
               src={yellowCar}
               alt=""
-              className="w-full sm:max-w-[280px] md:max-w-[430px]"
+              className="w-full sm:max-w-[280px] md:max-w-[430px] rounded-lg object-cover"
             />
-            <div
-              data-aos="slide-right"
-              className="absolute -bottom-5 -right-8 px-4 py-2 rounded-xl bg-white dark:bg-gray-900 dark:text-white shadow-md"
-            >
-              <p className="text-gray-500 text-sm ">⭐Projects</p>
-              <h1 className="font-bold">
-                600+ <span className="font-normal">Done</span>
-              </h1>
-            </div>
           </div>
 
           {/* Text section */}
@@ -31,14 +25,14 @@ const Hero = () => {
               className="text-4xl sm:text-5xl font-semibold"
               style={{ lineHeight: 1.2 }}
             >
-              Building Brands in the{" "}
-              <span className="text-primary">Digital Agency</span>
+              Organiza tu inventario, potencia tu marca con{" "}
+              <span className="text-primary">InventarioPRO</span>
             </h1>
             <p data-aos="fade-up" data-aos-delay="300">
-              Your partner in navigating the ever-evolving landscape of digital
-              marketing. From conceptualization to execution, we craft tailored
-              solutions that drive results and elevate your brand to new
-              heights.
+              InventarioPRO es tu solución definitiva para gestionar inventarios
+              de manera eficiente. Organiza, controla y optimiza tus productos
+              con facilidad, asegurando una administración ágil y precisa para
+              tu negocio.
             </p>
             <button
               data-aos="fade-up"
@@ -46,7 +40,7 @@ const Hero = () => {
               data-aos-offset="0"
               className="primary-btn"
             >
-              Learn More
+              Saber mas
             </button>
           </div>
         </div>

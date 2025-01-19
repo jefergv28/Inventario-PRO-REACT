@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 // Component import
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
-import BrandsLogo from "./components/BrandsLogo/BrandsLogo.jsx";
+import About from "./components/About/About";
 import Services from "./components/Services/Services";
 import Testimonial from "./components/Testimonial/Testimonial";
 import BlogsComp from "./components/Blogs/BlogsComp.jsx";
@@ -26,7 +26,7 @@ const App = () => {
     <div className="bg-white dark:bg-black dark:text-white text-black overflow-x-hidden">
       <Navbar />
       <Hero />
-      <BrandsLogo />
+      <About />
       <Services />
       <Testimonial />
       <BlogsComp />

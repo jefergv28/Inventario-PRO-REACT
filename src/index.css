@@ -15,6 +15,6 @@ html {
   }
 
   .primary-btn {
-    @apply bg-primary text-white hover:bg-primary/80  duration-500 rounded-lg py-2 px-4;
+    @apply bg-primary-100 text-white hover:bg-[rgba(242,151,39,0.8)] duration-500 rounded-lg py-2 px-4;
   }
 }
