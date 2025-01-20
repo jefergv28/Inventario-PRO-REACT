@@ -1,75 +1,110 @@
 import React from "react";
-import Slider from "react-slick";
 
-const testimonialData = [
+// Datos de testimonios
+const testimonialsData = [
   {
-    id: 1,
-    name: "David Calathan - Director of Design Operations, New York",
-    text: "The results have been incredible. With Power Digital, it feels like they’re in our trench, supporting and understanding us. They’re like a partner and mentor in helping us get where we want to be.",
-    img: "https://picsum.photos/101/101",
+    name: "Juan Pérez",
+    position: "Gerente de Logística",
+    img: "/images/juan.png", // Aquí pondrás la ruta de la imagen de Juan
+    testimony:
+      "La app de gestión de inventarios me ha ayudado a mejorar la organización y eficiencia de mi empresa. Ahora podemos tener un control total sobre nuestro stock y recibir alertas cuando los productos estén bajos.",
+    aosDelay: "0",
   },
   {
-    id: 1,
-    name: "David Calathan - Director of Design Operations, New York",
-    text: "The results have been incredible. With Power Digital, it feels like they’re in our trench, supporting and understanding us. They’re like a partner and mentor in helping us get where we want to be.",
-    img: "https://picsum.photos/102/102",
+    name: "Ana Gómez",
+    position: "Dueña de Tienda Online",
+    img: "images/ana.png", // Aquí pondrás la ruta de la imagen de Ana
+    testimony:
+      "¡Increíble! La facilidad de uso y las opciones de filtrado avanzadas hacen que gestionar mi inventario sea mucho más rápido y preciso. ¡Altamente recomendada!",
+    aosDelay: "300",
   },
   {
-    id: 1,
-    name: "Smith - Director of Operations, New York",
-    text: "The results have been incredible. With Power Digital, it feels like they’re in our trench, supporting and understanding us. They’re like a partner and mentor in helping us get where we want to be.",
-    img: "https://picsum.photos/103/103",
+    name: "Carlos Rodríguez",
+    position: "Propietario de Restaurante",
+    img: "images/carlos.png", // Aquí pondrás la ruta de la imagen de Carlos
+    testimony:
+      "La herramienta nos ha ayudado a llevar un registro detallado de todos los productos que usamos en nuestra cocina, evitando faltantes y mejorando la logística.",
+    aosDelay: "600",
+  },
+  {
+    name: "Laura Martínez",
+    position: "Fundadora de Startup",
+    img: "images/laura.png", // Aquí pondrás la ruta de la imagen de Laura
+    testimony:
+      "Con la app, puedo manejar el inventario de mi negocio sin tener que contratar personal adicional. Es intuitiva y tiene todo lo que necesito para administrar mi stock.",
+    aosDelay: "900",
+  },
+  {
+    name: "Miguel Sánchez",
+    position: "Consultor Empresarial",
+    img: "images/miguel.png", // Aquí pondrás la ruta de la imagen de Miguel
+    testimony:
+      "El sistema de alertas y la opción de generar reportes son esenciales para mantener el control de los productos. Es una herramienta que cualquier pequeña o mediana empresa debería tener.",
+    aosDelay: "1200",
   },
 ];
 
 const Testimonial = () => {
-  var settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
-    cssEase: "linear",
-    pauseOnHover: true,
-    pauseOnFocus: true,
-  };
   return (
     <>
-      <div className="py-10">
+      <span id="testimonials"></span>
+      <div className="bg-gray-100 dark:bg-black dark:text-white py-12 sm:grid sm:place-items-center">
         <div className="container">
-          {/* testimonial section */}
+          {/* Header */}
+          <div className="pb-12 text-center space-y-3">
+            <h1
+              data-aos="fade-up"
+              className="text-3xl font-semibold sm:text-3xl text-zinc-950 dark:text-white"
+            >
+              Testimonios
+            </h1>
+            <p
+              data-aos="fade-up"
+              className="text-gray-600 dark:text-gray-400 text-sm"
+            >
+              Lo que dicen nuestros clientes sobre nuestra app de gestión de
+              inventarios.
+            </p>
+          </div>
+
+          {/* Testimonios */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {testimonialsData.map((testimonial) => (
+              <div
+                key={testimonial.name}
+                data-aos="fade-up"
+                data-aos-delay={testimonial.aosDelay}
+                className="card space-y-3 sm:space-y-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md"
+              >
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={testimonial.img}
+                    alt={testimonial.name}
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                  <div>
+                    <h1 className="text-lg font-semibold">
+                      {testimonial.name}
+                    </h1>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {testimonial.position}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mt-4">
+                  "{testimonial.testimony}"
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Botón */}
           <div
             data-aos="fade-up"
-            className="grid grid-cols-1 max-w-screen-xl mx-auto gap-6"
+            data-aos-delay="1500"
+            className="text-center mt-8"
           >
-            <Slider {...settings}>
-              {testimonialData.map(({ id, name, text, img }) => {
-                return (
-                  <div key={id} className="my-6">
-                    {/* card */}
-                    <div className="flex flex-col sm:flex-row gap-5 md:gap-14 p-4 mx-4 rounded-xl dark:bg-gray-800 relative">
-                      <img
-                        src={img}
-                        alt=""
-                        className="block mx-auto h-[300px] w-full sm:w-[200px] object-cover"
-                      />
-                      <div className="space-y-4">
-                        <p className="text-gray-500 text-black/80 dark:text-white/80 xl:pr-40">
-                          “{text}”
-                        </p>
-                        <h1 className="text-xl font-bold">{name}</h1>
-                      </div>
-                      <p className="text-black/10 text-[12rem] font-serif absolute bottom-0 right-0">
-                        ,,
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </Slider>
+            <button className="primary-btn">Ver Más Testimonios</button>
           </div>
         </div>
       </div>

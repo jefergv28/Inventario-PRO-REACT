@@ -8,7 +8,10 @@ const About = () => {
   }, []);
 
   return (
-    <div className="py-20 bg-gray-50 dark:bg-gray-800 text-center">
+    <div
+      id="acerca-de"
+      className="py-20 bg-gray-50 dark:bg-gray-800 text-center"
+    >
       <div className="container mx-auto px-6">
         <h2 data-aos="fade-up" className="text-3xl font-semibold text-primary">
           Sobre Nosotros

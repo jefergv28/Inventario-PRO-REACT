@@ -11,7 +11,8 @@ export const MenuLinks = [
   { id: 4, name: "Contacto", link: "#contacto" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ openModal, buttonRef }) => {
+  // Aquí pasamos la función como prop
   const [showMenu, setShowMenu] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
@@ -74,10 +75,17 @@ const Navbar = () => {
                   </a>
                 </li>
               ))}
-              <button className="bg-primary-100 text-white px-6 py-3 rounded-lg hover:bg-secondary-300 active:bg-primary-100 transition-colors sm:px-4 sm:py-2">
+              <button
+                ref={buttonRef}
+                onClick={() => openModal(true)} // Llama a openModal con true para Login
+                className="bg-primary-100 text-white px-6 py-3 rounded-lg hover:bg-secondary-300 active:bg-primary-100 transition-colors sm:px-4 sm:py-2"
+              >
                 Iniciar sesión
               </button>
-              <button className="bg-zinc-200 text-zinc-900 px-6 py-3 rounded-lg hover:bg-secondary-300 active:bg-zinc-300 transition-colors sm:px-4 sm:py-2">
+              <button
+                onClick={() => openModal(false)} // Llama a openModal con false para Register
+                className="bg-zinc-200 text-zinc-900 px-6 py-3 rounded-lg hover:bg-secondary-300 active:bg-zinc-300 transition-colors sm:px-4 sm:py-2"
+              >
                 Registro
               </button>
               <DarkMode />
