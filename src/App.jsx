@@ -1,70 +1,69 @@
-import React, { useEffect, useState, useRef } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-// Component import
-import Navbar from "./components/Navbar/Navbar";
-import Hero from "./components/Hero/Hero";
-import About from "./components/About/About";
-import Services from "./components/Services/Services";
-import Testimonial from "./components/Testimonial/Testimonial";
-import Contacto from "./components/Contacto/Contact";
-import Footer from "./components/Footer/Footer";
-import Modal from "./components/Modal/Modal"; // Importa el modal
+import React, { useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom"; // Importa useLocation
+import LandingPage from "./components/Laindingpage/LaindingPage";
+import Dashboard from "./components/Dashboard/scenes/dasboard/Dashboard";
+import Topbar from "./components/Dashboard/scenes/global/Topbar";
+import Sidebar from "./components/Dashboard/scenes/global/Sidebar";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
+import Modal from ".//components/Laindingpage/Modal/Modal"; // Asegúrate de tener la ruta correcta del Modal
 
 const App = () => {
+  const [theme, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(true); // Estado para saber si es Login o Register
+  const [isLogin, setIsLogin] = useState(true);
 
-  // Abre el modal con el estado de Login o Register
+  // Hook useLocation para obtener la ruta actual
+  const location = useLocation();
+
   const openModal = (isLogin) => {
     setIsModalOpen(true);
-    setIsLogin(isLogin); // Si es Login o Register
+    setIsLogin(isLogin);
   };
 
-  // Cierra el modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // Cambia entre Login y Register
   const switchForm = () => {
     setIsLogin(!isLogin);
   };
 
-  useEffect(() => {
-    AOS.init({
-      offset: 100,
-      duration: 800,
-      easing: "ease-in",
-      delay: 100,
-    });
-    AOS.refresh();
-  }, []);
+  // Verifica si la ruta es la del dashboard
+  const isDashboardPage = location.pathname.startsWith("/dashboard");
 
   return (
-    <div className="bg-white dark:bg-black dark:text-white text-black overflow-x-hidden">
-      {/* Esto es el ancla para el enlace "Home" */}
-      <div id="home"></div>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+          {/* Muestra el Sidebar solo si estamos en la página del Dashboard */}
+          {isDashboardPage && <Sidebar isSidebar={isSidebar} />}
 
-      {/* Pasa openModal como prop a Navbar */}
-      <Navbar openModal={openModal} />
-      <Hero />
-      <About />
-      <Services />
-      <Testimonial />
-      <Contacto />
+          <main className="content">
+            {/* Muestra el Topbar solo si estamos en la página del Dashboard */}
+            {isDashboardPage && <Topbar setIsSidebar={setIsSidebar} />}
 
-      {/* Modal de Login y Register */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        isLogin={isLogin}
-        onSwitch={switchForm}
-      />
+            <Routes>
+              {/* Página principal (LandingPage) */}
+              <Route path="/" element={<LandingPage openModal={openModal} />} />
 
-      <Footer />
-    </div>
+              {/* Ruta para el Dashboard */}
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Routes>
+          </main>
+        </div>
+
+        {/* Modal */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          isLogin={isLogin}
+          onSwitch={switchForm}
+        />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 };
 

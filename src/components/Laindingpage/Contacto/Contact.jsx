@@ -138,7 +138,7 @@ export default function ContactForm() {
           <div className="sm:col-span-2">
             <label
               htmlFor="email"
-              className="block text-sm font-semibold text-gray-900"
+              className="block text-sm font-semibold text-gray-900 dark:text-white"
             >
               Email
             </label>
@@ -166,7 +166,9 @@ export default function ContactForm() {
           <div className="sm:col-span-2">
             <label
               htmlFor="message"
-              className="block text-sm font-semibold text-gray-900"
+              className="block text-sm 
+              font-semibold text-gray-900
+              dark:text-white"
             >
               Mensaje
             </label>
