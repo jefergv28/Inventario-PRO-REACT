@@ -2,10 +2,10 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
+import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
+import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Header from "../../Header";
 import LineChart from "../../LineChart";
 import GeographyChart from "../../GeographyChart";
@@ -23,19 +23,19 @@ const Dashboard = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="Bienvenido a tu panel de control"
-          subtitle="gestionarlo todo desde aquí"
+          subtitle="gestiona todo desde aquí"
         />
 
         <Box>
           <Button
             sx={{
-              backgroundColor: colors.grey[500],
-              color: colors.grey[100],
+              backgroundColor: colors.primary[100],
+              color: colors.grey[300],
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
               "&:hover": {
-                backgroundColor: colors.grey[600],
+                backgroundColor: colors.primary[200],
               },
             }}
           >
@@ -56,18 +56,19 @@ const Dashboard = () => {
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
+          color={colors.primary[100]}
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
+            title="$125,430"
+            subtitle="Valor del inventario"
+            progress="0.50"
             increase="+14%"
             icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+              <AttachMoneyOutlinedIcon
+                sx={{ color: colors.grey[100], fontSize: "28px" }}
               />
             }
           />
@@ -81,11 +82,11 @@ const Dashboard = () => {
         >
           <StatBox
             title="431,225"
-            subtitle="Sales Obtained"
+            subtitle="Movimientos recientes"
             progress="0.50"
             increase="+21%"
             icon={
-              <PointOfSaleIcon
+              <SwapHorizOutlinedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -100,11 +101,11 @@ const Dashboard = () => {
         >
           <StatBox
             title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
+            subtitle="Stock bajo"
+            progress="0.20"
+            increase="-5%"
             icon={
-              <PersonAddIcon
+              <WarningAmberOutlinedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -118,12 +119,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
+            title="Productos Favoritos"
+            subtitle="Número de productos marcados"
+            progress="0.75"
+            increase="+10%"
             icon={
-              <TrafficIcon
+              <FavoriteBorderOutlinedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -149,7 +150,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Comparativa de Ingresos por Canal de Venta
               </Typography>
               <Typography
                 variant="h3"
@@ -186,7 +187,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Movimientos de Inventario
             </Typography>
           </Box>
           {mockTransactions.map((transaction, i) => (
@@ -230,7 +231,7 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            campana
           </Typography>
           <Box
             display="flex"

@@ -48,7 +48,7 @@ const LandingPage = () => {
       {/* Ancla para el enlace "Home" */}
       <div id="home"></div>
       <Navbar onLogin={onLogin} /> {/* Pasamos la función como prop */}
-      <Hero />
+      <Hero onLogin={onLogin} />
       <About />
       <Services />
       <Testimonial />

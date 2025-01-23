@@ -1,15 +1,23 @@
 import React from "react";
 import yellowCar from "../../../assets/website/team.png";
+import { Modal } from "@mui/material";
 
-const Hero = () => {
+const Hero = ({ onLogin }) => {
   return (
-    <div className="dark:bg-gray-950 dark:text-white duration-300 ">
+    <div
+      className="dark:bg-slate-900 bg-neutral-200
+     dark:text-white duration-300 "
+    >
       <div className="container min-h-[620px] flex mt-10 sm:mt-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 place-items-center">
           {/* Image section */}
           <div
             data-aos="zoom-in"
-            className="order-1 sm:order-2 relative bg-gradient-to-t from-primary-100 via-zinc-100 to-white dark:from-primary-100 dark:via-gray-950 dark:to-gray-950 rounded-2xl p-0"
+            className="order-1 sm:order-2 relative 
+            bg-gradient-to-t from-primary-100
+             via-neutral-200 to-neutral-200
+              dark:from-primary-100
+               dark:via-slate-900 dark:to-slate-900 rounded-2xl p-0"
           >
             <img
               src={yellowCar}
@@ -39,8 +47,9 @@ const Hero = () => {
               data-aos-delay="500"
               data-aos-offset="0"
               className="primary-btn"
+              onClick={() => onLogin(true)}
             >
-              Saber mas
+              Empezar ahora
             </button>
           </div>
         </div>

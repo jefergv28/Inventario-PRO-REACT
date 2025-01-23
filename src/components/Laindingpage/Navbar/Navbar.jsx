@@ -30,7 +30,7 @@ const Navbar = ({ onLogin, buttonRef }) => {
     <div
       className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 ${
         isSticky
-          ? "bg-opacity-90 bg-zinc-300 dark:bg-black"
+          ? "bg-opacity-90 bg-zinc-300 dark:bg-slate-900"
           : "bg-opacity-100 bg-transparent"
       }`}
     >

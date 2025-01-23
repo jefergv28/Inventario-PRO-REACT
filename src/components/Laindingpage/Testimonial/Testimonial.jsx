@@ -48,7 +48,7 @@ const Testimonial = () => {
   return (
     <>
       <span id="testimonials"></span>
-      <div className="bg-gray-100 dark:bg-black dark:text-white py-12 sm:grid sm:place-items-center">
+      <div className="bg-neutral-200 dark:bg-slate-900 dark:text-white py-12 sm:grid sm:place-items-center">
         <div className="container">
           {/* Header */}
           <div className="pb-12 text-center space-y-3">
@@ -96,15 +96,6 @@ const Testimonial = () => {
                 </p>
               </div>
             ))}
-          </div>
-
-          {/* Botón */}
-          <div
-            data-aos="fade-up"
-            data-aos-delay="1500"
-            className="text-center mt-8"
-          >
-            <button className="primary-btn">Ver Más Testimonios</button>
           </div>
         </div>
       </div>

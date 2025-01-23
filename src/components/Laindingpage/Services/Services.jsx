@@ -60,7 +60,7 @@ const Services = () => {
   return (
     <>
       <span id="services"></span>
-      <div className="bg-gray-100 dark:bg-black dark:text-white py-12 sm:grid sm:place-items-center">
+      <div className="bg-neutral-200 dark:bg-slate-900 dark:text-white py-12 sm:grid sm:place-items-center">
         <div className="container">
           {/* Header */}
           <div className="pb-12 text-center space-y-3">
@@ -107,9 +107,7 @@ const Services = () => {
             data-aos-delay="1300"
             data-aos-offset="0"
             className="text-center mt-8"
-          >
-            <button className="primary-btn">Saber Más</button>
-          </div>
+          ></div>
         </div>
       </div>
     </>

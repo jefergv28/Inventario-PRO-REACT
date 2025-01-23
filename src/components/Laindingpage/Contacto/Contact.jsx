@@ -53,7 +53,7 @@ export default function ContactForm() {
   return (
     <div
       id="contacto"
-      className="isolate bg-white dark:bg-black px-6 py-24 sm:py-32 lg:px-8"
+      className="isolate bg-neutral-200 dark:bg-slate-900 px-6 py-24 sm:py-32 lg:px-8"
     >
       <div
         aria-hidden="true"

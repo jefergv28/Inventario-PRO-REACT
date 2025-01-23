@@ -1,6 +1,6 @@
 import { tokens } from "../../../theme";
 
-export const mockDataTeam = [
+export const mockDataInventario = [
   {
     id: 1,
     name: "Jon Snow",
@@ -75,7 +75,7 @@ export const mockDataTeam = [
   },
 ];
 
-export const mockDataContacts = [
+export const mockDataLista = [
   {
     id: 1,
     name: "Jon Snow",

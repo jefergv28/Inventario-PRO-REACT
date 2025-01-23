@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Logo from "../../../assets/website/Vector.svg";
 
 const About = () => {
   useEffect(() => {
@@ -10,12 +11,23 @@ const About = () => {
   return (
     <div
       id="acerca-de"
-      className="py-20 bg-gray-50 dark:bg-gray-800 text-center"
+      className="p-20  mx-auto
+       bg-neutral-200 dark:bg-slate-900 text-center"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-1 px-6">
         <h2 data-aos="fade-up" className="text-3xl font-semibold text-primary">
           Sobre Nosotros
         </h2>
+        <div className="flex justify-center items-center">
+          <img
+            data-aos="fade-up"
+            src={Logo}
+            width={60}
+            height={60}
+            alt="logo"
+            className="my-4"
+          />
+        </div>
         <p
           data-aos="fade-up"
           data-aos-delay="200"

@@ -7,7 +7,17 @@ import Sidebar from "./components/Dashboard/scenes/global/Sidebar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Modal from ".//components/Laindingpage/Modal/Modal"; // Asegúrate de tener la ruta correcta del Modal
-
+import Inventario from "./components/Dashboard/scenes/inventario/Inventario";
+import Lista from "./components/Dashboard/scenes/Lista-inv/Lista";
+import Historial from "./components/Dashboard/scenes/Historial/Historial";
+import Selecion from "./components/Dashboard/scenes/Selecion/Selecion";
+import Favoritos from "./components/Dashboard/scenes/Favoritos/Favoritos";
+import Stock from "./components/Dashboard/scenes/Stock/Stock";
+import Provedores from "./components/Dashboard/scenes/Provedores/Provedores";
+import Bar from "./components/Dashboard/BarChart";
+import Pie from "./components/Dashboard/PieChart";
+import Line from "./components/Dashboard/LineChart";
+import Geography from "./components/Dashboard/GeographyChart";
 const App = () => {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -51,6 +61,29 @@ const App = () => {
 
               {/* Ruta para el Dashboard */}
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/Inventario" element={<Inventario />} />
+              <Route path="/dashboard/Lista-inv" element={<Lista />} />
+              <Route
+                path="/dashboard/Selecion/Selecion"
+                element={<Selecion />}
+              />
+              <Route
+                path="/dashboard/Favoritos/Favoritos"
+                element={<Favoritos />}
+              />
+              <Route
+                path="/dashboard/Historial/Historial"
+                element={<Historial />}
+              />
+              <Route path="/dashboard/Stock/Stock" element={<Stock />} />
+              <Route
+                path="/dashboard/Provedores/Provedores"
+                element={<Provedores />}
+              />
+              <Route path="/dashboard/BarChart" element={<Bar />} />
+              <Route path="/dashboard/PieChart" element={<Pie />} />
+              <Route path="/dashboard/LineChart" element={<Line />} />
+              <Route path="/dashboard/GeographyChart" element={<Geography />} />
             </Routes>
           </main>
         </div>

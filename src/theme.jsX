@@ -14,12 +14,12 @@ export const tokens = (mode) => ({
           600: "#525252",
           700: "#3d3d3d",
           800: "#292929",
-          900: "#141414",
+          900: "#141b2d",
         },
         primary: {
           100: "#f29727",
-          200: "#a1a4ab",
-          300: "#727681",
+          200: "#f5b454",
+          300: "#f8d18f",
           400: "#1F2A40",
           500: "#141b2d",
           600: "#101624",
@@ -28,15 +28,15 @@ export const tokens = (mode) => ({
           900: "#040509",
         },
         greenAccent: {
-          100: "#dbf5ee",
-          200: "#b7ebde",
-          300: "#94e2cd",
-          400: "#70d8bd",
-          500: "#4cceac",
-          600: "#3da58a",
-          700: "#2e7c67",
-          800: "#1e5245",
-          900: "#0f2922",
+          100: "#f8e1cf",
+          200: "#f4c3a0",
+          300: "#f29727", // Color naranja
+          400: "#db8820",
+          500: "#f29727",
+          600: "##f29727",
+          700: "##f29727",
+          800: "#2d1b06",
+          900: "#160d03",
         },
         redAccent: {
           100: "#f8dcdb",
@@ -71,12 +71,12 @@ export const tokens = (mode) => ({
           600: "#858585",
           700: "#a3a3a3",
           800: "#c2c2c2",
-          900: "#e0e0e0",
+          900: "#ffffff",
         },
         primary: {
-          100: "#040509",
-          200: "#080b12",
-          300: "#0c101b",
+          100: "#f29727",
+          200: "#f5b454",
+          300: "##f8d18f",
           400: "#f2f0f0", // manually changed
           500: "#141b2d",
           600: "#1F2A40",
@@ -85,15 +85,15 @@ export const tokens = (mode) => ({
           900: "#d0d1d5",
         },
         greenAccent: {
-          100: "#0f2922",
-          200: "#1e5245",
-          300: "#2e7c67",
-          400: "#3da58a",
-          500: "#4cceac",
-          600: "#70d8bd",
-          700: "#94e2cd",
-          800: "#b7ebde",
-          900: "#dbf5ee",
+          100: "#f8e1cf",
+          200: "#f4c3a0",
+          300: "#f29727", // Color naranja
+          400: "#db8820",
+          500: "##f29727",
+          600: "##f29727",
+          700: "##f29727",
+          800: "#2d1b06",
+          900: "#160d03",
         },
         redAccent: {
           100: "#2c100f",
@@ -128,12 +128,12 @@ export const themeSettings = (mode) => {
       mode: mode,
       ...(mode === "dark"
         ? {
-            // palette values for dark mode
+            // valores de paleta para el modo oscuro
             primary: {
               main: colors.primary[500],
             },
             secondary: {
-              main: colors.greenAccent[500],
+              main: colors.primary[400],
             },
             neutral: {
               dark: colors.grey[700],
@@ -145,12 +145,12 @@ export const themeSettings = (mode) => {
             },
           }
         : {
-            // palette values for light mode
+            // valores de paleta para el modo de luz
             primary: {
-              main: colors.primary[100],
+              main: colors.primary[500],
             },
             secondary: {
-              main: colors.greenAccent[500],
+              main: colors.primary[400],
             },
             neutral: {
               dark: colors.grey[700],

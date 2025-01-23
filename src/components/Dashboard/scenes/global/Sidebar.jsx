@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -15,15 +15,17 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import Logo from "../../../../assets/website/Vector.svg";
 import Perfil from "../../imges/perfile.png";
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
-      active={selected === title}
+      active={selected === to}
       style={{
         color: colors.grey[100],
       }}
@@ -39,26 +41,46 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  useEffect(() => {
+    setSelected(location.pathname);
+  });
+  [location.pathname];
 
   return (
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[500]} !important`,
+          background: `${colors.primary[400]} !important`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
         },
         "& .pro-inner-item": {
           padding: "5px 35px 5px 20px !important",
+          transition: "all 0.3s ease",
         },
         "& .pro-inner-item:hover": {
           color: "#f29727!important ",
+          transition: "background-color 0.3s ease",
         },
         "& .pro-menu-item.active": {
-          color: "#ad3910!important",
+          color: `${colors.blueAccent[300]} !important`,
+          backgroundColor: `${colors.grey[900]}!important`,
+          borderLeft: `5px solid ${colors.primary[100]}!important`,
+          borderRadius: "25px 0px 0px 10px !important",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Sombra ligera
+          transition: "all 0.3s ease, transform 0.3s ease",
+          transform: "translateY(5px)", // Efecto de deslizamiento
+        },
+        "& .pro-menu-item": {
+          transition: "all 0.3s ease, transform 0.3s ease",
+        },
+        "& .pro-menu-item:not(.active)": {
+          transform: "translateY(0px)",
         },
       }}
     >
@@ -69,8 +91,8 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
-              color: colors.primary[500],
+              margin: "10px 0 20px 5px",
+              color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
@@ -99,7 +121,7 @@ const Sidebar = () => {
           </MenuItem>
 
           {!isCollapsed && (
-            <Box mb="25px">
+            <Box mb="5px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
@@ -118,7 +140,7 @@ const Sidebar = () => {
                 >
                   Jeferson
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography variant="h5" color={colors.primary[100]}>
                   Administrador
                 </Typography>
               </Box>
@@ -151,22 +173,29 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Crear Inventario"
-              to="/team"
+              to="/dashboard/Inventario"
               icon={<Inventory2OutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Lista de Inventarios"
-              to="/contacts"
+              to="/dashboard/Lista-inv"
               icon={<ListAltOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Selecionar Inventario"
-              to="/invoices"
+              to="/dashboard/Selecion/Selecion"
               icon={<CheckBoxOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Productos favoritos"
+              to="/dashboard/Favoritos/Favoritos"
+              icon={<FavoriteBorderOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -183,21 +212,21 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Historial de movimiento"
-              to="/form"
+              to="/dashboard/Historial/Historial"
               icon={<HistoryOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Controll de stock"
-              to="/calendar"
+              to="/dashboard/Stock/Stock"
               icon={<StorageOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Provedores"
-              to="/faq"
+              to="/dashboard/Provedores/Provedores"
               icon={<StorefrontOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -215,28 +244,28 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Gráfico de Barras"
-              to="/bar"
+              to="/dashboard/BarChart"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Gráfico Circular"
-              to="/pie"
+              to="/dashboard/PieChart"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Gráfico de líneas"
-              to="/line"
+              to="/dashboard/LineChart"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Carta Geográfica"
-              to="/geography"
+              to="/dashboard/GeographyChart"
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
