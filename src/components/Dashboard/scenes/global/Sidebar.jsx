@@ -5,9 +5,9 @@ import { Link, useLocation } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
+import AddIcon from "@mui/icons-material/Add";
+import AssessmentIcon from "@mui/icons-material/Assessment";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
@@ -61,26 +61,27 @@ const Sidebar = () => {
         },
         "& .pro-inner-item": {
           padding: "5px 35px 5px 20px !important",
-          transition: "all 0.3s ease",
+          transition: "all 0.1s ease",
         },
         "& .pro-inner-item:hover": {
           color: "#f29727!important ",
-          transition: "background-color 0.3s ease",
+          transition: "background-color 0.1s ease",
         },
         "& .pro-menu-item.active": {
-          color: `${colors.blueAccent[300]} !important`,
+          color: `${colors.blueAccent[500]} !important`,
           backgroundColor: `${colors.grey[900]}!important`,
           borderLeft: `5px solid ${colors.primary[100]}!important`,
           borderRadius: "25px 0px 0px 10px !important",
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Sombra ligera
-          transition: "all 0.3s ease, transform 0.3s ease",
-          transform: "translateY(5px)", // Efecto de deslizamiento
+          transition: "all 0.1s ease, transform 0.1s ease",
+          transform: "translateY(-5px)", // Efecto de deslizamiento
         },
         "& .pro-menu-item": {
-          transition: "all 0.3s ease, transform 0.3s ease",
+          transition: "all 0.1s ease, transform 0.1s ease",
         },
-        "& .pro-menu-item:not(.active)": {
-          transform: "translateY(0px)",
+        "& .pro-menu-item.active:hover": {
+          transform: "translateY(5px)", // Mueve el ítem hacia abajo cuando está en hover
+          transition: "all 0.1s ease", // Transición más rápida para el hover
         },
       }}
     >
@@ -172,23 +173,23 @@ const Sidebar = () => {
               Inventarios
             </Typography>
             <Item
-              title="Crear Inventario"
+              title="Gestion de inventario"
               to="/dashboard/Inventario"
-              icon={<Inventory2OutlinedIcon />}
+              icon={<WarehouseIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Lista de Inventarios"
-              to="/dashboard/Lista-inv"
-              icon={<ListAltOutlinedIcon />}
+              title="Agregar productos"
+              to="/dashboard/Agregar"
+              icon={<AddIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Selecionar Inventario"
-              to="/dashboard/Selecion/Selecion"
-              icon={<CheckBoxOutlinedIcon />}
+              title="Informe de Inventarios"
+              to="/dashboard/Informe/Informe"
+              icon={<AssessmentIcon />}
               selected={selected}
               setSelected={setSelected}
             />

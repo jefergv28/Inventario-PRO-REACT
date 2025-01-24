@@ -8,9 +8,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Modal from ".//components/Laindingpage/Modal/Modal"; // Asegúrate de tener la ruta correcta del Modal
 import Inventario from "./components/Dashboard/scenes/inventario/Inventario";
-import Lista from "./components/Dashboard/scenes/Lista-inv/Lista";
+import Agregar from "./components/Dashboard/scenes/Agregar/Agregar";
 import Historial from "./components/Dashboard/scenes/Historial/Historial";
-import Selecion from "./components/Dashboard/scenes/Selecion/Selecion";
+import Informe from "./components/Dashboard/scenes/Informe/Informe";
 import Favoritos from "./components/Dashboard/scenes/Favoritos/Favoritos";
 import Stock from "./components/Dashboard/scenes/Stock/Stock";
 import Provedores from "./components/Dashboard/scenes/Provedores/Provedores";
@@ -62,11 +62,8 @@ const App = () => {
               {/* Ruta para el Dashboard */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/Inventario" element={<Inventario />} />
-              <Route path="/dashboard/Lista-inv" element={<Lista />} />
-              <Route
-                path="/dashboard/Selecion/Selecion"
-                element={<Selecion />}
-              />
+              <Route path="/dashboard/Agregar" element={<Agregar />} />
+              <Route path="/dashboard/Informe/Informe" element={<Informe />} />
               <Route
                 path="/dashboard/Favoritos/Favoritos"
                 element={<Favoritos />}
