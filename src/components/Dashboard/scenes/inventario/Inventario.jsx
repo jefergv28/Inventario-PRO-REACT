@@ -52,16 +52,16 @@ const Inventario = () => {
 
   // Columnas de la tabla de inventarios
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
-    { field: "name", headerName: "Nombre", width: 200 },
-    { field: "type", headerName: "Tipo", width: 150 },
-    { field: "date", headerName: "Fecha de Creación", width: 180 },
+    { field: "id", headerName: "ID", width: 200 },
+    { field: "name", headerName: "Nombre", width: 350 },
+    { field: "type", headerName: "Tipo", width: 350 },
+    { field: "date", headerName: "Fecha de Creación", width: 330 },
     {
       field: "actions",
       headerName: "Acciones",
-      width: 180,
+      width: 280,
       renderCell: ({ row }) => (
-        <Box display="flex" justifyContent="space-between" width="150px">
+        <Box display="flex" justifyContent="space-between" width="130px">
           <IconButton
             color="primary"
             onClick={() => handleVerInventarios(row.id)}
