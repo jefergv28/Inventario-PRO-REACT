@@ -17,13 +17,25 @@ import Header from "../../Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ResponsiveModal from "../modal/modal"; // Asegúrate de importar el modal
+import ResponsiveModal from "../modal/modal";
+import DialogTitle from "@mui/material/DialogTitle";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import AddIcon from "@mui/icons-material/Add"; // Importa el ícono "Add"
 
 const Inventario = () => {
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState(""); // 'error', 'success', etc.
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    type: "",
+    date: "",
+  });
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  // Estado para manejar los inventarios y productos
   const [inventarios, setInventarios] = useState([
     {
       id: 1,
@@ -42,7 +54,7 @@ const Inventario = () => {
   ]);
 
   const [openModal, setOpenModal] = useState(false);
-  const [modalContent, setModalContent] = useState("crear"); // "crear", "editar" o "ver"
+  const [modalContent, setModalContent] = useState("crear");
   const [nuevoInventario, setNuevoInventario] = useState({
     name: "",
     type: "General",
@@ -50,32 +62,47 @@ const Inventario = () => {
   });
   const [selectedInventario, setSelectedInventario] = useState(null);
 
-  // Columnas de la tabla de inventarios
   const columns = [
     { field: "id", headerName: "ID", width: 200 },
-    { field: "name", headerName: "Nombre", width: 350 },
-    { field: "type", headerName: "Tipo", width: 350 },
-    { field: "date", headerName: "Fecha de Creación", width: 330 },
+    { field: "name", headerName: "Nombre", flex: 2 },
+    { field: "type", headerName: "Tipo", flex: 1 },
+    { field: "date", headerName: "Fecha de Creación", width: 200 },
+    { field: "number", headerName: "Cantidad de productos", width: 200 },
     {
       field: "actions",
       headerName: "Acciones",
-      width: 280,
+      width: 200,
       renderCell: ({ row }) => (
-        <Box display="flex" justifyContent="space-between" width="130px">
+        <Box display="flex" justifyContent="space-between" width="70px">
           <IconButton
-            color="primary"
+            sx={{
+              color: colors.blueAccent[100],
+              "&:hover": {
+                color: colors.blueAccent[200],
+              },
+            }}
             onClick={() => handleVerInventarios(row.id)}
           >
             <VisibilityIcon />
           </IconButton>
           <IconButton
-            color="secondary"
+            sx={{
+              color: colors.redAccent[500],
+              "&:hover": {
+                color: colors.redAccent[600],
+              },
+            }}
             onClick={() => handleEliminarInventario(row.id)}
           >
             <DeleteIcon />
           </IconButton>
           <IconButton
-            color="default"
+            sx={{
+              color: colors.primary[500],
+              "&:hover": {
+                color: colors.primary[300],
+              },
+            }}
             onClick={() => handleEditarInventario(row.id)}
           >
             <EditIcon />
@@ -85,24 +112,22 @@ const Inventario = () => {
     },
   ];
 
-  // Manejo de abrir/cerrar modal
   const handleOpenModal = (modo, inventario = null) => {
     setModalMode(modo);
 
     if (modo === "editar" && inventario) {
-      setNuevoInventario(inventario); // Cargar datos del inventario
+      setNuevoInventario(inventario);
     } else if (modo === "ver" && inventario) {
-      setNuevoInventario(inventario); // Cargar datos del inventario solo para visualización
+      setNuevoInventario(inventario);
     } else {
       setNuevoInventario({
         name: "",
         type: "General",
         date: new Date().toISOString().split("T")[0],
-        products: [], // Asegurarse de que no hay productos en el modo "crear"
-      }); // Reiniciar el estado para crear
+      });
     }
 
-    setOpenModal(true); // Abrir el modal
+    setOpenModal(true);
   };
 
   const handleCloseModal = () => {
@@ -113,17 +138,37 @@ const Inventario = () => {
       date: new Date().toISOString().split("T")[0],
     });
     setSelectedInventario(null);
+    setFormErrors({ name: "", type: "", date: "" });
   };
 
-  // Crear nuevo inventario
+  const validateForm = () => {
+    let errors = {};
+    if (!nuevoInventario.name) {
+      errors.name = "El nombre del inventario es obligatorio";
+    }
+    if (!nuevoInventario.type) {
+      errors.type = "El tipo de inventario es obligatorio";
+    }
+    if (!nuevoInventario.date) {
+      errors.date = "La fecha de creación es obligatoria";
+    } else {
+      const today = new Date();
+      const inputDate = new Date(nuevoInventario.date);
+
+      if (inputDate > today) {
+        errors.date = "La fecha de creación no puede ser en el futuro";
+      }
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; // Retorna true si no hay errores
+  };
+
   const handleCrearInventario = () => {
-    if (nuevoInventario.name === "" || nuevoInventario.type === "") {
-      alert("Por favor, complete todos los campos.");
-      return; // Evitar crear inventario si faltan campos
+    if (!validateForm()) {
+      return;
     }
 
     if (nuevoInventario.id) {
-      // Si hay un ID, actualizamos el inventario existente
       const updatedInventarios = inventarios.map((inventario) =>
         inventario.id === nuevoInventario.id
           ? { ...nuevoInventario }
@@ -131,41 +176,37 @@ const Inventario = () => {
       );
       setInventarios(updatedInventarios);
     } else {
-      // Si no hay un ID, creamos uno nuevo
       setInventarios([
         ...inventarios,
         { id: inventarios.length + 1, ...nuevoInventario, productos: [] },
       ]);
     }
+
     setNuevoInventario({
       name: "",
       type: "General",
       date: new Date().toISOString().split("T")[0],
-    }); // Reiniciar formulario
-    handleCloseModal(); // Cerrar modal
+    });
+    handleCloseModal();
   };
 
-  // Ver los productos de un inventario aquí va la lógica para mostrar los productos desde
-  // la interfaz de agregar producto
   const handleVerInventarios = (id) => {
     const inventario = inventarios.find((item) => item.id === id);
     setSelectedInventario(inventario);
     handleOpenModal("ver");
   };
 
-  // Eliminar un inventario
   const handleEliminarInventario = (id) => {
     const newInventarios = inventarios.filter((item) => item.id !== id);
     setInventarios(newInventarios);
   };
 
-  // Editar un inventario
   const handleEditarInventario = (id) => {
     const inventario = inventarios.find((item) => item.id === id);
     handleOpenModal("editar", inventario);
   };
 
-  const [modalMode, setModalMode] = useState(""); // 'crear', 'editar', 'ver'
+  const [modalMode, setModalMode] = useState("");
 
   const inputStyles = (theme) => ({
     input: { color: colors.grey[100] },
@@ -220,33 +261,12 @@ const Inventario = () => {
             backgroundColor: colors.blueAccent[600],
           },
         }}
+        startIcon={<AddIcon />}
       >
         Crear Inventario
       </Button>
 
-      <Box
-        m="0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-        }}
-      >
+      <Box m="0" height="75vh">
         <DataGrid rows={inventarios} columns={columns} />
       </Box>
 
@@ -255,13 +275,40 @@ const Inventario = () => {
         open={openModal}
         handleClose={handleCloseModal}
         title={
-          modalMode === "crear"
-            ? "Crear Inventario"
-            : modalMode === "editar"
-            ? "Editar Inventario"
-            : "Productos del Inventario"
+          <DialogTitle
+            sx={{
+              color:
+                modalMode === "crear"
+                  ? colors.primary[100]
+                  : modalMode === "editar"
+                  ? colors.primary[100]
+                  : colors.grey[100],
+              fontSize:
+                modalMode === "crear"
+                  ? "1.5rem"
+                  : modalMode === "editar"
+                  ? "1.25rem"
+                  : "1rem",
+            }}
+          >
+            {modalMode === "crear"
+              ? "Crear Inventario"
+              : modalMode === "editar"
+              ? "Editar Inventario"
+              : "Productos del Inventario"}
+          </DialogTitle>
         }
       >
+        {/* Mostrar mensaje de alerta si hay algún error */}
+        {alertMessage && (
+          <Typography
+            variant="body1"
+            color={alertSeverity === "error" ? "red" : "green"}
+          >
+            {alertMessage}
+          </Typography>
+        )}
+
         {modalMode === "crear" || modalMode === "editar" ? (
           <>
             <TextField
@@ -273,94 +320,58 @@ const Inventario = () => {
               }
               margin="normal"
               sx={inputStyles(theme)}
+              fullWidth
+              error={!!formErrors.name}
+              helperText={formErrors.name}
             />
-
-            <FormControl fullWidth margin="normal">
-              <InputLabel
-                sx={{ color: colors.grey[100], fontSize: "16px" }}
-              ></InputLabel>
+            <FormControl fullWidth margin="normal" sx={inputStyles(theme)}>
+              <InputLabel id="type-select">Tipo de Inventario</InputLabel>
               <Select
+                labelId="type-select"
                 value={nuevoInventario.type}
+                label="Tipo de Inventario"
                 onChange={(e) =>
                   setNuevoInventario({
                     ...nuevoInventario,
                     type: e.target.value,
                   })
                 }
-                sx={{
-                  color: colors.grey[100],
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: colors.grey[900],
-                    },
-                    "&:hover fieldset": {
-                      borderColor: colors.primary[100],
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: colors.primary[100],
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: colors.grey[100],
-                  },
-                }}
               >
                 <MenuItem value="General">General</MenuItem>
                 <MenuItem value="Semanal">Semanal</MenuItem>
-                <MenuItem value="Mensual">Mensual</MenuItem>
+                <MenuItem value="Semanal">Diario</MenuItem>
               </Select>
+              {formErrors.type && (
+                <Typography color="red" variant="body2" sx={{ mt: 1 }}>
+                  {formErrors.type}
+                </Typography>
+              )}
             </FormControl>
-
-            <TextField
-              label="Fecha de Creación"
-              type="date"
-              value={nuevoInventario.date}
-              onChange={(e) =>
-                setNuevoInventario({ ...nuevoInventario, date: e.target.value })
-              }
-              sx={{
-                width: "100%",
-                marginTop: "20px",
-                input: { color: colors.grey[100] },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: colors.grey[900],
-                  },
-                  "&:hover fieldset": {
-                    borderColor: colors.primary[100],
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: colors.primary[100],
-                  },
-                },
-              }}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker />
+            </LocalizationProvider>
             <Button
               onClick={handleCrearInventario}
               variant="contained"
+              color="primary"
               sx={{
-                marginTop: "20px",
+                marginTop: "10px",
                 backgroundColor: colors.primary[100],
-                "&:hover": {
-                  backgroundColor: colors.primary[300],
-                },
+                marginLeft: "20px",
               }}
             >
-              {modalMode === "crear" ? "Crear" : "Actualizar"}
+              {modalMode === "crear" ? "Crear Inventario" : "Guardar Cambios"}
             </Button>
           </>
-        ) : (
-          <Box>
-            <Typography variant="h6">Productos de Inventario</Typography>
-            <Box mt="20px">
-              <ul>
-                {selectedInventario?.productos.map((producto, index) => (
-                  <li key={index}>{producto}</li>
-                ))}
-              </ul>
-            </Box>
-          </Box>
-        )}
+        ) : modalMode === "ver" ? (
+          <Typography variant="body1">
+            Nombre del Inventario: {nuevoInventario.name}
+            <br />
+            Tipo: {nuevoInventario.type}
+            <br />
+            Fecha de Creación: {nuevoInventario.date}
+          </Typography>
+        ) : null}
       </ResponsiveModal>
     </Box>
   );
