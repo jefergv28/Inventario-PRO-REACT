@@ -31,7 +31,6 @@ const ResponsiveModal = ({
           transform: "translate(-50%, -50%)",
           backgroundColor: colors?.background?.default || colors.grey[900], // valor predeterminado en caso de que no exista 'background'
           borderRadius: "10px",
-          borderRadius: "10px",
           padding: "20px",
           width: "90%", // 90% del ancho en pantallas pequeñas
           maxWidth: "500px", // Ancho máximo para pantallas grandes

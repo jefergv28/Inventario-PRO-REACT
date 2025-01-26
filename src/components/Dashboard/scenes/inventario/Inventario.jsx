@@ -98,7 +98,7 @@ const Inventario = () => {
           </IconButton>
           <IconButton
             sx={{
-              color: colors.primary[500],
+              color: colors.primary[200],
               "&:hover": {
                 color: colors.primary[300],
               },
@@ -324,6 +324,7 @@ const Inventario = () => {
               error={!!formErrors.name}
               helperText={formErrors.name}
             />
+
             <FormControl fullWidth margin="normal" sx={inputStyles(theme)}>
               <InputLabel id="type-select">Tipo de Inventario</InputLabel>
               <Select
@@ -336,6 +337,7 @@ const Inventario = () => {
                     type: e.target.value,
                   })
                 }
+                error={!!formErrors.type}
               >
                 <MenuItem value="General">General</MenuItem>
                 <MenuItem value="Semanal">Semanal</MenuItem>

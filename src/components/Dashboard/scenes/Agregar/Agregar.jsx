@@ -15,16 +15,19 @@ import {
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../../theme";
 import { useTheme } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../Header";
 import { mockDataProductos } from "../../data/mockData";
 import { Add, Edit, Delete } from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
+import FavoriteProductsPage from "../Favoritos/Favoritos";
 
 const Lista = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [open, setOpen] = useState(false);
+  const [localProducts, setLocalProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState(mockDataProductos);
   const [formData, setFormData] = useState({
@@ -33,6 +36,7 @@ const Lista = () => {
     category: "",
     provider: "",
     stock: "",
+    isFavorite: "",
   });
 
   const [selectAll, setSelectAll] = useState(false); // Estado para seleccionar todo
@@ -74,15 +78,29 @@ const Lista = () => {
     },
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Nombre de producto", flex: 1 },
+    {
+      field: "isFavorite",
+      headerName: "Favoritos",
+      flex: 0.3,
+      renderCell: (params) => (
+        <IconButton
+          onClick={() => handleFavorite(params.row.id)}
+          sx={{ color: params.row.isFavorite ? "red" : "gray" }} // Cambia el color si está marcado como favorito
+        >
+          <Favorite />
+        </IconButton>
+      ),
+    },
     { field: "category", headerName: "Categoría", flex: 1 },
     { field: "price", headerName: "Precio", flex: 1 },
     { field: "provider", headerName: "Proveedor", flex: 1 },
-    { field: "stock", headerName: "Cantidad", flex: 1 },
+    { field: "stock", headerName: "Cantidad", flex: 0.5 },
     {
       field: "actions",
       headerName: "Acciones",
+      flex: 0.5,
       renderCell: (params) => (
-        <Box>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           <IconButton
             onClick={() => handleEdit(params.row)}
             sx={{ color: colors.primary[300] }}
@@ -92,10 +110,29 @@ const Lista = () => {
           <IconButton onClick={() => handleDelete(params.row.id)} color="error">
             <Delete />
           </IconButton>
+          <IconButton
+            onClick={() => handleFavorite(params.row.id)}
+            sx={{ color: params.row.isFavorite ? "red" : "gray" }} // Cambia el color si está marcado como favorito
+          >
+            <Favorite />
+          </IconButton>
         </Box>
       ),
     },
   ];
+
+  // Función para manejar el cambio de estado del favorito
+  const handleFavorite = (productId) => {
+    const updatedProducts = products.map((product) =>
+      product.id === productId
+        ? { ...product, isFavorite: !product.isFavorite } // Cambia el estado de favorito
+        : product
+    );
+    setProducts(updatedProducts);
+
+    // Guarda los productos actualizados en LocalStorage
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+  };
 
   const handleSelectAll = (e) => {
     setSelectAll(e.target.checked);
@@ -197,16 +234,20 @@ const Lista = () => {
     setSelectedProducts([]);
   };
 
-  const handleBulkEdit = () => {
-    // Lógica de edición en masa (solo se hará si quieres aplicar cambios a todos)
-    // Ejemplo: Editar precios de todos los productos seleccionados
-    const updatedProducts = products.map((product) =>
-      selectedProducts.includes(product.id)
-        ? { ...product, price: formData.price } // O cualquier otro campo que quieras editar
-        : product
-    );
-    setProducts(updatedProducts);
-  };
+  useEffect(() => {
+    // Guardar en LocalStorage cada vez que se actualicen los productos
+    localStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
+  useEffect(() => {
+    try {
+      const storedProducts = JSON.parse(localStorage.getItem("products"));
+      if (Array.isArray(storedProducts)) {
+        setProducts(storedProducts);
+      }
+    } catch (error) {
+      console.error("Error al cargar productos desde LocalStorage:", error);
+    }
+  }, []);
 
   return (
     <Box m="10px">
