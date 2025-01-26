@@ -6,7 +6,7 @@ const Hero = ({ onLogin }) => {
   return (
     <div
       className="dark:bg-slate-900 bg-neutral-200
-     dark:text-white duration-300 "
+     dark:text-white duration-300 sm:py-2 min-full"
     >
       <div className="container min-h-[620px] flex mt-10 sm:mt-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 place-items-center">
@@ -22,7 +22,7 @@ const Hero = ({ onLogin }) => {
             <img
               src={yellowCar}
               alt=""
-              className="w-full sm:max-w-[280px] md:max-w-[430px] rounded-lg object-cover"
+              className="w-full sm:max-w-[180px] md:max-w-[430px] rounded-lg object-cover"
             />
           </div>
 
@@ -46,7 +46,7 @@ const Hero = ({ onLogin }) => {
               data-aos="fade-up"
               data-aos-delay="500"
               data-aos-offset="0"
-              className="primary-btn"
+              className="primary-btn  "
               onClick={() => onLogin(true)}
             >
               Empezar ahora

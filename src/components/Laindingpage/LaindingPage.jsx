@@ -55,7 +55,7 @@ const LandingPage = () => {
       <Contacto />
       <Footer />
       {/* Mostrar el botón de logout si está autenticado */}
-      {isLoggedIn ? (
+      {/* {isLoggedIn ? (
         <button onClick={handleLogout} className="logout-btn">
           Cerrar sesión
         </button>
@@ -63,7 +63,7 @@ const LandingPage = () => {
         <button onClick={() => onLogin(true)} className="login-btn">
           Iniciar sesión
         </button>
-      )}
+      )} */}
       {/* Modal */}
       {isModalOpen && (
         <Modal

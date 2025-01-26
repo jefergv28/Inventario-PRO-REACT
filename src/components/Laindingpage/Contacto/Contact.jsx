@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Switch } from "@headlessui/react";
-
+import "aos/dist/aos.css";
 export default function ContactForm() {
   const [agreed, setAgreed] = useState(false);
   const [formData, setFormData] = useState({
@@ -52,6 +52,7 @@ export default function ContactForm() {
 
   return (
     <div
+      data-aos="fade-up"
       id="contacto"
       className="isolate bg-neutral-200 dark:bg-slate-900 px-6 py-24 sm:py-32 lg:px-8"
     >

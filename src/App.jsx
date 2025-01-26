@@ -18,6 +18,8 @@ import Bar from "./components/Dashboard/BarChart";
 import Pie from "./components/Dashboard/PieChart";
 import Line from "./components/Dashboard/LineChart";
 import Geography from "./components/Dashboard/GeographyChart";
+import ResponsiveMenu from "./components/Laindingpage/Navbar/ResponsiveMenu"; // Asegúrate de importar el componente correctamente
+
 const App = () => {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -58,8 +60,8 @@ const App = () => {
             <Routes>
               {/* Página principal (LandingPage) */}
               <Route path="/" element={<LandingPage openModal={openModal} />} />
-
-              {/* Ruta para el Dashboard */}
+              <Route path="/responsive-menu" element={<ResponsiveMenu />} />
+              {/* Ruta para el menú móvil */} {/* Ruta para el Dashboard */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/Inventario" element={<Inventario />} />
               <Route path="/dashboard/Agregar" element={<Agregar />} />

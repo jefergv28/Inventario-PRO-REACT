@@ -162,7 +162,7 @@ const Modal = ({ isOpen, onClose, isLogin, onSwitch }) => {
           onClick={onClose}
         />
         <div
-          className={`modal-content bg-white/80 dark:bg-slate-800 text-black dark:text-white rounded-lg transition-all duration-500 ease-in-out relative left-96 bottom-20 ${
+          className={`modal-content bg-white/80 dark:bg-slate-800/90 text-black dark:text-white rounded-lg transition-all duration-500 ease-in-out relative left-96 bottom-20 ${
             isOpen ? "modal-slide-down" : ""
           } max-w-lg w-full`}
         >
@@ -214,9 +214,6 @@ const Modal = ({ isOpen, onClose, isLogin, onSwitch }) => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium">
-                      Fecha de nacimiento
-                    </label>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         value={birthdate}

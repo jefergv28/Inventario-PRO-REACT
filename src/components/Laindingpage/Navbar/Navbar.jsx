@@ -34,7 +34,7 @@ const Navbar = ({ onLogin, buttonRef }) => {
           : "bg-opacity-100 bg-transparent"
       }`}
     >
-      <div className="container py-3 md:py-2">
+      <div className="container py-3 md:py-2 sm:py-2">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3">
