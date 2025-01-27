@@ -1,5 +1,5 @@
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ColorModeContext, tokens } from "../../../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -13,9 +13,38 @@ const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [scrolling, setScrolling] = useState(false);
+
+  // Detectar el evento de scroll
+  const handleScroll = () => {
+    if (window.scrollY > 10) {
+      // Si el scroll es mayor a 50px
+      setScrolling(true);
+    } else {
+      setScrolling(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box
+      display="flex"
+      position="fixed"
+      top="0"
+      justifyContent="space-evenly center"
+      ml={-8}
+      p={2}
+      width="100%"
+      backgroundColor={scrolling ? "rgba(44, 75, 109, 0.66)" : "transparent"} // Color con opacidad cuando hace scroll
+      zIndex={999}
+      style={{
+        transition: "background-color 0.3s ease", // Transición suave
+      }}
+    >
       {/* SEARCH BAR */}
       <Box
         display="flex"
@@ -29,7 +58,7 @@ const Topbar = () => {
       </Box>
 
       {/* ICONS */}
-      <Box display="flex">
+      <Box display="flex" marginLeft={150} zIndex={999}>
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />

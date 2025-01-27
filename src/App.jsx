@@ -51,9 +51,8 @@ const App = () => {
         <CssBaseline />
         <div className="app">
           {/* Muestra el Sidebar solo si estamos en la página del Dashboard */}
-          {isDashboardPage && <Sidebar isSidebar={isSidebar} />}
-
-          <main className="content">
+          {isDashboardPage && <Sidebar isSidebar={isSidebar} />}isDash
+          <main className="content ml-72 mt-10">
             {/* Muestra el Topbar solo si estamos en la página del Dashboard */}
             {isDashboardPage && <Topbar setIsSidebar={setIsSidebar} />}
 
