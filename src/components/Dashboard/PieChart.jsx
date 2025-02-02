@@ -1,11 +1,20 @@
 import { ResponsivePie } from "@nivo/pie";
-import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
-import { mockPieData as data } from "../Dashboard/data/mockData";
+import { tokens } from "../../theme";
+import { mockDataProductos } from "../Dashboard/data/mockData"; // Importamos los datos de productos
 
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  // Datos para el gráfico: todos los productos y sus precios
+  const data = mockDataProductos.map((product) => ({
+    id: product.name,
+    label: product.name,
+    value: product.price, // El valor del producto (su precio)
+    color: colors.primary[500], // Color fijo o puedes generar un color único para cada producto
+  }));
+
   return (
     <ResponsivePie
       data={data}
@@ -13,27 +22,27 @@ const PieChart = () => {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: colors.primary[100],
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: colors.primary[100],
             },
           },
           ticks: {
             line: {
-              stroke: colors.grey[100],
+              stroke: colors.primary[100],
               strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+              fill: colors.primary[100],
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill: colors.primary[100],
           },
         },
       }}
@@ -47,10 +56,10 @@ const PieChart = () => {
         modifiers: [["darker", 0.2]],
       }}
       arcLinkLabelsSkipAngle={10}
-      arcLinkLabelsTextColor={colors.grey[100]}
+      arcLinkLabelsTextColor={colors.primary[100]}
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ from: "color" }}
-      enableArcLabels={false}
+      enableArcLabels={true}
       arcLabelsRadiusOffset={0.4}
       arcLabelsSkipAngle={7}
       arcLabelsTextColor={{
@@ -66,15 +75,6 @@ const PieChart = () => {
           size: 4,
           padding: 1,
           stagger: true,
-        },
-        {
-          id: "lines",
-          type: "patternLines",
-          background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10,
         },
       ]}
       legends={[
@@ -96,7 +96,7 @@ const PieChart = () => {
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemTextColor: colors.grey[200],
               },
             },
           ],

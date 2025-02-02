@@ -32,8 +32,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Typography>{title}</Typography>
-      <Link to={to} />
+      {/* Solo mostrar el título si no está colapsado */}
+      <Link to={to}>
+        <Typography>{title}</Typography>
+      </Link>
     </MenuItem>
   );
 };
@@ -47,17 +49,18 @@ const Sidebar = () => {
 
   useEffect(() => {
     setSelected(location.pathname);
-  });
-  [location.pathname];
+  }, [location.pathname]);
 
   return (
     <Box
       sx={{
-        position: "fixed",
-        zIndex: 1000,
-
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          zIndex: 1000,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -75,27 +78,32 @@ const Sidebar = () => {
           backgroundColor: `${colors.grey[900]}!important`,
           borderLeft: `5px solid ${colors.primary[100]}!important`,
           borderRadius: "25px 0px 0px 10px !important",
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Sombra ligera
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
           transition: "all 0.1s ease, transform 0.1s ease",
-          transform: "translateY(-5px)", // Efecto de deslizamiento
+          transform: "translateY(-5px)",
         },
         "& .pro-menu-item": {
           transition: "all 0.1s ease, transform 0.1s ease",
         },
         "& .pro-menu-item.active:hover": {
-          transform: "translateY(5px)", // Mueve el ítem hacia abajo cuando está en hover
-          transition: "all 0.1s ease", // Transición más rápida para el hover
+          transform: "translateY(5px)",
+          transition: "all 0.1s ease",
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
+      <ProSidebar
+        collapsed={isCollapsed}
+        style={{
+          transition: "all 0.3s ease",
+          width: isCollapsed ? "80px" : "250px",
+        }}
+      >
         <Menu iconShape="square">
-          {/* ICONO DE MENÚ Y LOGOTIPO */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 5px",
+              margin: "10px 0 10px 5px",
               color: colors.grey[100],
             }}
           >
@@ -106,13 +114,7 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <img
-                  variant="100px"
-                  width={40}
-                  height={40}
-                  src={Logo}
-                  alt="logo"
-                />
+                <img width={40} height={40} src={Logo} alt="logo" />
                 <Typography variant="h5" color={colors.grey[100]}>
                   inventario-PRO
                 </Typography>
@@ -154,56 +156,58 @@ const Sidebar = () => {
           <Box
             display="flex"
             flexDirection="column"
-            paddingLeft={isCollapsed ? "10%" : "10%"}
+            paddingLeft={isCollapsed ? "10%" : "5%"}
             gap={isCollapsed ? "20px" : "0px"}
           >
             <Item
-              title="Dashboard"
+              title={!isCollapsed ? "Dashboard" : ""}
               to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
+            {/* Inventarios */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{
-                m: "15px 0 5px 20px",
+                m: "10px 0 5px 10px",
                 display: isCollapsed ? "none" : "block",
               }}
             >
               Inventarios
             </Typography>
             <Item
-              title="Gestion de inventario"
+              title={isCollapsed ? "" : "Gestion de inventario"}
               to="/dashboard/Inventario"
               icon={<WarehouseIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Agregar productos"
+              title={isCollapsed ? "" : "Agregar productos"}
               to="/dashboard/Agregar"
               icon={<AddIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Informe de Inventarios"
+              title={isCollapsed ? "" : "Informe de Inventarios"}
               to="/dashboard/Informe/Informe"
               icon={<AssessmentIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Productos favoritos"
+              title={isCollapsed ? "" : "Productos favoritos"}
               to="/dashboard/Favoritos/Favoritos"
               icon={<FavoriteBorderOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
+            {/* Movimientos */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -212,30 +216,31 @@ const Sidebar = () => {
                 display: isCollapsed ? "none" : "block",
               }}
             >
-              movimientos
+              Movimientos
             </Typography>
             <Item
-              title="Historial de movimiento"
+              title={isCollapsed ? "" : "Historial de movimiento"}
               to="/dashboard/Historial/Historial"
               icon={<HistoryOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Controll de stock"
+              title={isCollapsed ? "" : "Controll de stock"}
               to="/dashboard/Stock/Stock"
               icon={<StorageOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Provedores"
+              title={isCollapsed ? "" : "Provedores"}
               to="/dashboard/Provedores/Provedores"
               icon={<StorefrontOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
+            {/* Gráficos */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -247,28 +252,28 @@ const Sidebar = () => {
               Gráficos
             </Typography>
             <Item
-              title="Gráfico de Barras"
+              title={isCollapsed ? "" : "Gráfico de Barras"}
               to="/dashboard/BarChart"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Gráfico Circular"
+              title={isCollapsed ? "" : "Gráfico Circular"}
               to="/dashboard/PieChart"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Gráfico de líneas"
+              title={isCollapsed ? "" : "Gráfico de líneas"}
               to="/dashboard/LineChart"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Carta Geográfica"
+              title={isCollapsed ? "" : "Carta Geográfica"}
               to="/dashboard/GeographyChart"
               icon={<MapOutlinedIcon />}
               selected={selected}

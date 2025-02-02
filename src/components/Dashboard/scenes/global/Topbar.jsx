@@ -35,18 +35,19 @@ const Topbar = () => {
       display="flex"
       position="fixed"
       top="0"
-      justifyContent="space-evenly center"
-      ml={-8}
+      justifyContent="space-between-content"
+      ml={-3}
       p={2}
       width="100%"
       backgroundColor={scrolling ? "rgba(44, 75, 109, 0.66)" : "transparent"} // Color con opacidad cuando hace scroll
       zIndex={999}
       style={{
-        transition: "background-color 0.3s ease", // Transición suave
+        transition: "background-color 0.2s ease", // Transición suave
       }}
     >
       {/* SEARCH BAR */}
       <Box
+        ml={4}
         display="flex"
         backgroundColor={colors.primary[400]}
         borderRadius="3px"

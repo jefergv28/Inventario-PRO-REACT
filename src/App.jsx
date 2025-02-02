@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom"; // Importa useLocation
+import { Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./components/Laindingpage/LaindingPage";
 import Dashboard from "./components/Dashboard/scenes/dasboard/Dashboard";
 import Topbar from "./components/Dashboard/scenes/global/Topbar";
 import Sidebar from "./components/Dashboard/scenes/global/Sidebar";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider, Box } from "@mui/material"; // Importamos Box de MUI
 import { ColorModeContext, useMode } from "./theme";
-import Modal from ".//components/Laindingpage/Modal/Modal"; // Asegúrate de tener la ruta correcta del Modal
+import Modal from ".//components/Laindingpage/Modal/Modal";
 import Inventario from "./components/Dashboard/scenes/inventario/Inventario";
 import Agregar from "./components/Dashboard/scenes/Agregar/Agregar";
 import Historial from "./components/Dashboard/scenes/Historial/Historial";
@@ -18,7 +18,7 @@ import Bar from "./components/Dashboard/BarChart";
 import Pie from "./components/Dashboard/PieChart";
 import Line from "./components/Dashboard/LineChart";
 import Geography from "./components/Dashboard/GeographyChart";
-import ResponsiveMenu from "./components/Laindingpage/Navbar/ResponsiveMenu"; // Asegúrate de importar el componente correctamente
+import ResponsiveMenu from "./components/Laindingpage/Navbar/ResponsiveMenu";
 
 const App = () => {
   const [theme, colorMode] = useMode();
@@ -51,8 +51,22 @@ const App = () => {
         <CssBaseline />
         <div className="app">
           {/* Muestra el Sidebar solo si estamos en la página del Dashboard */}
-          {isDashboardPage && <Sidebar isSidebar={isSidebar} />}isDash
-          <main className="content ml-72 mt-10">
+          {isDashboardPage && <Sidebar isSidebar={isSidebar} />}
+
+          <Box
+            component="main"
+            sx={{
+              // Solo aplica el ajuste si estamos en la página del Dashboard
+              marginLeft: isDashboardPage
+                ? isSidebar
+                  ? "20px"
+                  : "60px"
+                : "0px",
+              transition: "margin-left 0.1s ease", // Animación para el cambio de margin
+              width: "100%", // Asegura que el ancho sea 100% para que ocupe todo el espacio
+              marginTop: isDashboardPage ? "40px" : "0px", // Añadimos un margin top en el Dashboard si es necesario
+            }}
+          >
             {/* Muestra el Topbar solo si estamos en la página del Dashboard */}
             {isDashboardPage && <Topbar setIsSidebar={setIsSidebar} />}
 
@@ -60,7 +74,7 @@ const App = () => {
               {/* Página principal (LandingPage) */}
               <Route path="/" element={<LandingPage openModal={openModal} />} />
               <Route path="/responsive-menu" element={<ResponsiveMenu />} />
-              {/* Ruta para el menú móvil */} {/* Ruta para el Dashboard */}
+              {/* Rutas para el Dashboard */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/Inventario" element={<Inventario />} />
               <Route path="/dashboard/Agregar" element={<Agregar />} />
@@ -83,7 +97,7 @@ const App = () => {
               <Route path="/dashboard/LineChart" element={<Line />} />
               <Route path="/dashboard/GeographyChart" element={<Geography />} />
             </Routes>
-          </main>
+          </Box>
         </div>
 
         {/* Modal */}

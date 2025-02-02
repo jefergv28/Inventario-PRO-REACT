@@ -52,7 +52,6 @@ export default function ContactForm() {
 
   return (
     <div
-      data-aos="fade-up"
       id="contacto"
       className="isolate bg-neutral-200 dark:bg-slate-900 px-6 py-24 sm:py-32 lg:px-8"
     >
@@ -77,6 +76,7 @@ export default function ContactForm() {
         </p>
       </div>
       <form
+        data-aos="fade-up"
         onSubmit={handleSubmit}
         className="mx-auto mt-16 max-w-xl sm:mt-20 "
       >
